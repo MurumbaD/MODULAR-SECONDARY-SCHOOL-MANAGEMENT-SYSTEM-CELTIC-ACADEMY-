@@ -5,12 +5,11 @@ import java.util.*;
 
 /**
  * Service managing student collection persistence and queries.
- * 
- * @author Kirabo Naume
+ * @author Okello Solomon (Group 01)
  */
 public class StudentService {
     private final List<Student> studentList = new ArrayList<>();
-    private final String storageFile = "G01_StudentsData.txt";
+    private final String storageFile = "G01_Celtec_StudentsData.txt";
 
     public StudentService() {
         loadFromFile();
@@ -43,7 +42,7 @@ public class StudentService {
     private void saveToFile() {
         try (PrintWriter writer = new PrintWriter(new FileWriter(storageFile))) {
             for (Student s : studentList) {
-                writer.println(s.getId() + ";" + s.getName() + ";" + s.getAge() + ";" + s.getClassLevel() + ";" + s.getFeesBalance());
+                writer.println(s.getId() + ";" + s.getName() + ";" + s.getAge() + ";" + s.getClassLevel() + ";" + s.getStream() + ";" + s.getFeesBalance());
             }
         } catch (IOException e) {
             System.err.println("Warning: Could not save student records: " + e.getMessage());
@@ -58,13 +57,13 @@ public class StudentService {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(";");
-                if (parts.length >= 5) {
-                    Student s = new Student(parts[0], parts[1], Integer.parseInt(parts[2]), parts[3], Double.parseDouble(parts[4]));
+                if (parts.length >= 6) {
+                    Student s = new Student(parts[0], parts[1], Integer.parseInt(parts[2]), parts[3], parts[4], Double.parseDouble(parts[5]));
                     studentList.add(s);
                 }
             }
         } catch (Exception e) {
-            System.out.println("Note: Initialized student registry cleanly.");
+            System.out.println("Note: Initialized Celtec Academy student registry.");
         }
     }
 }
